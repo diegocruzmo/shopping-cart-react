@@ -1,10 +1,36 @@
+import { useReducer } from 'react'
 import { CartContext } from './CartContext'
-import { useState } from 'react'
+//import { useState } from 'react'
+import { cartReducer, initialState } from '../reducers/CartReducer.js'
+
+function useCartReducer() {
+  const [state, dispatch] = useReducer(cartReducer, initialState)
+
+  const addToCart = (product) =>
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: product
+    })
+
+  const deleteProduct = (product) =>
+    dispatch({
+      type: 'DELETE_PRODUCT',
+      payload: product
+    })
+
+  const cleanCart = () =>
+    dispatch({
+      type: 'CLEAN_CART'
+    })
+
+  return { state, addToCart, cleanCart, deleteProduct }
+}
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([])
+  const { state, addToCart, cleanCart, deleteProduct } = useCartReducer()
+  //const [cart, setCart] = useState([])
 
-  const addToCart = (product) => {
+  /*   const addToCart = (product) => {
     const productInCart = cart.findIndex((item) => item.id === product.id)
 
     if (productInCart >= 0) {
@@ -20,17 +46,19 @@ export const CartProvider = ({ children }) => {
         quantity: 1
       }
     ])
-  }
+  } */
 
-  const deleteProduct = (product) => {
+  /*   const deleteProduct = (product) => {
     const newCart = cart.filter((element) => !(product.id === element.id))
     setCart(newCart)
-  }
+  } */
 
-  const cleanCart = () => setCart([])
+  /*   const cleanCart = () => setCart([]) */
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, cleanCart, deleteProduct }}>
+    <CartContext.Provider
+      value={{ cart: state, addToCart, cleanCart, deleteProduct }}
+    >
       {children}
     </CartContext.Provider>
   )
