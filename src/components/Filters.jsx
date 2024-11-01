@@ -27,6 +27,7 @@ const Filters = () => {
             min='0'
             max='2500'
             onChange={handleChangePrice}
+            value={filters.minPrice}
           />
           <span>{filters.minPrice}</span>
         </div>
