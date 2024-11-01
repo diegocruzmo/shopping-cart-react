@@ -5,11 +5,14 @@ import './index.css'
 import App from './App.jsx'
 import { FiltersProvider } from './context/FiltersProvider.jsx'
 import { ProductsProvider } from './context/ProductsProvider.jsx'
+import { CartProvider } from './context/CartProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <ProductsProvider>
-    <FiltersProvider>
-      <App />
-    </FiltersProvider>
+    <CartProvider>
+      <FiltersProvider>
+        <App />
+      </FiltersProvider>
+    </CartProvider>
   </ProductsProvider>
 )
