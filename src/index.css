@@ -1,0 +1,17 @@
+html,
+body {
+  background-color: black;
+  color: aliceblue;
+}
+
+.products {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+img {
+  width: 180px;
+  height: 200px;
+}
